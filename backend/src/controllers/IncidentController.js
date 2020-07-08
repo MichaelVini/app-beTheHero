@@ -2,8 +2,22 @@ const connection = require('../database/connection')
 
 module.exports = {
     async index(request, response) {
-        const incidents = await connection('incidents').select('*');
+        //Buscar dados da page
+        const { page = 1 } = request.query;
+        
+        //Contar todos os incidents
+        const [ count ] = await connection('incidents').count();
+        console.log(count);
 
+        //selecionar todos os incidents e limitar quantidade por pagina. (5 por pg, no caso)
+        const incidents = await connection('incidents')
+            .limit(5)
+            .offset((page - 1)* 5)
+            .select('*');
+
+        //Retornar o total de incidents no cabeçalho do response
+        response.header('X-Total-Count', count['count(*)']);
+        
         return response.json(incidents);
     },
 
