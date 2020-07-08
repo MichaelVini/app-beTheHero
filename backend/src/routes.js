@@ -1,6 +1,8 @@
 const express = require('express');
 const OngController = require('./controllers/OngController');
 const IncidentController = require('./controllers/IncidentController');
+const ProfileController = require('./controllers/ProfileController');
+
 const routes = express.Router();
 
 //Rota para listar todas as ongs do banco de dados
@@ -14,6 +16,9 @@ routes.post('/incidents', IncidentController.create);
 routes.get('/incidents', IncidentController.index);
 //Rota para deletar um incident de acordo com seu id.
 routes.delete('/incidents/:id', IncidentController.delete);
+
+//Rota para listar os incidents do profile logado.
+routes.get('/profile', ProfileController.index);
 
 //Permitir que as rotas sejam exportadas
 module.exports = routes;
