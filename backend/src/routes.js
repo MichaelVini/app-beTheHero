@@ -1,27 +1,19 @@
 const express = require('express');
-const crypto = require('crypto');
-
-const connection = require('./database/connection');
-
+const OngController = require('./controllers/OngController');
+const IncidentController = require('./controllers/IncidentController');
 const routes = express.Router();
 
-routes.post('/ongs', async (request, response) => {
-    const { name, email, whatsapp, city, uf} = request.body;
+//Rota para listar todas as ongs do banco de dados
+routes.get('/ongs', OngController.index);
+//Rota para criar tabela do tipo ONG e retornar um id.
+routes.post('/ongs', OngController.create);
 
-    //Gerar um id de 4 bytes em formato Hexadecimal
-    const id = crypto.randomBytes(4).toString('hex');
-
-    await connection('ongs').insert({
-        id,
-        name,
-        email,
-        whatsapp,
-        city,
-        uf,
-    })
-
-    return response.json({ id });
-});
+//Rota para criar tabela do tipo INCIDENTS e retornar um id.
+routes.post('/incidents', IncidentController.create);
+//Rota para listar tados os INCIDENTS do banco de dados.
+routes.get('/incidents', IncidentController.index);
+//Rota para deletar um incident de acordo com seu id.
+routes.delete('/incidents/:id', IncidentController.delete);
 
 //Permitir que as rotas sejam exportadas
 module.exports = routes;
