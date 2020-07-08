@@ -2,6 +2,7 @@ const express = require('express');
 const OngController = require('./controllers/OngController');
 const IncidentController = require('./controllers/IncidentController');
 const ProfileController = require('./controllers/ProfileController');
+const SessionController = require('./controllers/SessionController');
 
 const routes = express.Router();
 
@@ -19,6 +20,10 @@ routes.delete('/incidents/:id', IncidentController.delete);
 
 //Rota para listar os incidents do profile logado.
 routes.get('/profile', ProfileController.index);
+
+//Rota para criar login
+routes.post('/sessions', SessionController.create);
+
 
 //Permitir que as rotas sejam exportadas
 module.exports = routes;
