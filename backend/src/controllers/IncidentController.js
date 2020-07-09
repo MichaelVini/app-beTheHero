@@ -10,10 +10,19 @@ module.exports = {
         console.log(count);
 
         //selecionar todos os incidents e limitar quantidade por pagina. (5 por pg, no caso)
+        // Adicionar informações da tabela de ONG's nos incidents. Como: name, email, whatsapp, city e uf.  
         const incidents = await connection('incidents')
+            .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
             .limit(5)
             .offset((page - 1)* 5)
-            .select('*');
+            .select([
+                'incidents.*',
+                'ongs.name',
+                'ongs.email',
+                'ongs.whatsapp',
+                'ongs.city',
+                'ongs.uf'
+            ]);
 
         //Retornar o total de incidents no cabeçalho do response
         response.header('X-Total-Count', count['count(*)']);

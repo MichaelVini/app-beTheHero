@@ -1,7 +1,11 @@
 const express = require('express');
 const routes = require('./routes');
+const cors = require('cors')
 
 const app = express();
+
+//Permitir quais endereços podem acessar a aplicação. (Como está em desenvolvimento, todos podem acessar por enquanto)
+app.use(cors());
 
 //informar ao express que estamos utilizando Json para requisições.
 app.use(express.json());
