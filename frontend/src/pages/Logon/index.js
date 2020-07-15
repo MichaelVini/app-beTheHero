@@ -18,7 +18,7 @@ export default function Logon() {
         try {
             //Envia o id de login para o backend e retorna informações da ONG.
             const response = await api.post('sessions', { id });
-            
+
             //Salvar o id e o nome da ONG no storage do navegador 
             localStorage.setItem('ongId', id);
             localStorage.setItem('ongName', response.data.name);
@@ -35,7 +35,7 @@ export default function Logon() {
         <div className="logon-container">
             <section className="form">
                 <img src={logoImg} alt="logo" />
-                <form onSubmit= { handleLogin }>
+                <form onSubmit={handleLogin}>
                     <h1>Faça seu Logon</h1>
                     <input
                         type="text"

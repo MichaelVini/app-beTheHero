@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import logoImg from '../../assets/logo.svg';
-import  { Link, useHistory }  from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import './style.css';
 import api from '../../services/api';
@@ -30,7 +30,7 @@ export default function Profile() {
 
     //Remover casos:
     async function handleDeleteIncident(id) {
-        try{
+        try {
             await api.delete(`incidents/${id}`, {
                 headers: {
                     Authorization: ongId,
@@ -38,9 +38,9 @@ export default function Profile() {
             });
 
             //remover o incident sem atualizar a pagina
-            setIncidents(incidents.filter( incident => incident.id != id));
+            setIncidents(incidents.filter(incident => incident.id != id));
 
-        } catch (err){
+        } catch (err) {
             alert('Erro ao deletar caso, tente novamente.')
         }
     }
@@ -74,7 +74,7 @@ export default function Profile() {
                         <strong>VALOR:</strong>
                         <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}</p>
 
-                        <button onClick={ () => handleDeleteIncident(incident.id)} type="button"> <FiTrash2 size={20} color="#a8a8b3" /> </button>
+                        <button onClick={() => handleDeleteIncident(incident.id)} type="button"> <FiTrash2 size={20} color="#a8a8b3" /> </button>
                     </li>
                 )
                 )}
