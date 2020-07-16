@@ -7,7 +7,6 @@ module.exports = {
         
         //Contar todos os incidents
         const [ count ] = await connection('incidents').count();
-        console.log(count);
 
         //selecionar todos os incidents e limitar quantidade por pagina. (5 por pg, no caso)
         // Adicionar informações da tabela de ONG's nos incidents. Como: name, email, whatsapp, city e uf.  
