@@ -61,7 +61,7 @@ export default StyleSheet.create({
         color: '#737380'
     },
 
-    Button: {
+    detailsButton: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
