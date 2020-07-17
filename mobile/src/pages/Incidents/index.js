@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, Text, TouchableOpacity, FlatList } from 'react-native';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import api from '../../services/api'
 
 
 export default function Incidents() {
     const navigation = useNavigation();
+    const [incidents, setIncidents] = useState([]);
+
 
     function navigateToDetail() {
         navigation.navigate('Detail');
     }
+    
+    async function loadIncidents() {
+        const response = await api.get('incidents');
+        
+        //buscar dados do backend
+        setIncidents(response.data);
+    }
+
+    useEffect(() => {
+
+       loadIncidents();
+
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -27,9 +43,9 @@ export default function Incidents() {
             <Text style={styles.description}> Escolha um dos casos abaixo e salve o dia.</Text>
 
             <FlatList
-                data={[1, 2, 3, 4, 5]}
+                data={incidents}
                 style={styles.incidentList}
-                keyExtractor={incident => String(incident)}
+                keyExtractor={incident => String(incident.id)}
                 //Tirar a barra de scrool
                 showsVerticalScrollIndicator={false}
                 renderItem={() => (
