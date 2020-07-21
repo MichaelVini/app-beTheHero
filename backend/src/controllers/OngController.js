@@ -1,7 +1,8 @@
-const { request, response } = require("express")
+const { request, response } = require("express");
+const { generateUniqueId }  = require('../utils/generateUniqueId')
 
 const connection = require('../database/connection');
-const crypto = require('crypto');
+
 
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
         const { name, email, whatsapp, city, uf} = request.body;
 
         //Gerar um id de 4 bytes em formato Hexadecimal
-        const id = crypto.randomBytes(4).toString('hex');
+        const id = generateUniqueId();
         
         // A partir da importação da conexão com o bd, gerar uma tabela
         // com as colunas: id, name, email, whatsapp, city e uf. 

@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(routes);
 app.use(errors());
 
-app.listen(3333);
+module.exports = app;
+
 /* 
     Rota/Recurso
     Ex rota =>  http://localhost:3333/users
